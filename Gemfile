@@ -43,7 +43,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # Google Cloud Vision API for OCR
-gem "google-cloud-vision", "~> 1.4"
+gem "google-cloud-vision", "~> 2.0"
 
 # PDF processing
 gem "pdf-reader", "~> 2.12"
