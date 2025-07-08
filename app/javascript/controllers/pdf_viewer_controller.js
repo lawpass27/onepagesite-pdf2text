@@ -8,6 +8,9 @@ export default class extends Controller {
     this.scale = 1.0
     this.pdfDoc = null
     
+    // Listen for page change events from text editor
+    window.addEventListener('textEditor:pageChanged', this.handleTextEditorPageChange.bind(this))
+    
     // Load PDF.js
     this.loadPdfJs()
   }
@@ -116,12 +119,14 @@ export default class extends Controller {
     if (this.currentPage <= 1) return
     this.currentPage--
     this.renderPage(this.currentPage)
+    this.dispatchPageChange()
   }
   
   nextPage() {
     if (!this.pdfDoc || this.currentPage >= this.pdfDoc.numPages) return
     this.currentPage++
     this.renderPage(this.currentPage)
+    this.dispatchPageChange()
   }
   
   zoomIn() {
@@ -211,5 +216,23 @@ export default class extends Controller {
     context.font = '20px sans-serif'
     context.textAlign = 'center'
     context.fillText('PDF가 로드되면 여기에 표시됩니다', this.canvasTarget.width / 2, this.canvasTarget.height / 2)
+  }
+  
+  disconnect() {
+    window.removeEventListener('textEditor:pageChanged', this.handleTextEditorPageChange.bind(this))
+  }
+  
+  dispatchPageChange() {
+    window.dispatchEvent(new CustomEvent('pdfViewer:pageChanged', {
+      detail: { page: this.currentPage }
+    }))
+  }
+  
+  handleTextEditorPageChange(event) {
+    const newPage = event.detail.page
+    if (this.pdfDoc && newPage !== this.currentPage && newPage >= 1 && newPage <= this.pdfDoc.numPages) {
+      this.currentPage = newPage
+      this.renderPage(this.currentPage)
+    }
   }
 }

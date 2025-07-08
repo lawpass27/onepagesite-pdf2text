@@ -32,23 +32,6 @@ export default class extends Controller {
     event.preventDefault()
     event.stopPropagation()
     
-    // Add ripple effect
-    const button = event.currentTarget
-    const ripple = document.createElement('span')
-    const rect = button.getBoundingClientRect()
-    const size = Math.max(rect.width, rect.height)
-    const x = event.clientX - rect.left - size / 2
-    const y = event.clientY - rect.top - size / 2
-    
-    ripple.style.width = ripple.style.height = size + 'px'
-    ripple.style.left = x + 'px'
-    ripple.style.top = y + 'px'
-    ripple.classList.add('ripple')
-    
-    button.appendChild(ripple)
-    
-    setTimeout(() => ripple.remove(), 600)
-    
     console.log("Triggering file input...")
     this.fileInputTarget.click()
   }
@@ -134,26 +117,4 @@ export default class extends Controller {
     this.progressContainerTarget.classList.add("hidden")
   }
   
-  handleDragOver(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    this.dropzoneTarget.classList.add('bg-blue-50', 'border-blue-400')
-  }
-  
-  handleDragLeave(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    this.dropzoneTarget.classList.remove('bg-blue-50', 'border-blue-400')
-  }
-  
-  handleDrop(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    this.dropzoneTarget.classList.remove('bg-blue-50', 'border-blue-400')
-    
-    const files = event.dataTransfer.files
-    if (files.length > 0) {
-      this.processFile(files[0])
-    }
-  }
 }

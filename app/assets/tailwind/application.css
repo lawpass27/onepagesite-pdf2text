@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+/* Sky gradient animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(5px) translateX(-5px); }
+  75% { transform: translateY(-5px) translateX(10px); }
+}
+
+/* Cloud animation */
+.cloud-float {
+  animation: float 20s ease-in-out infinite;
+}
+
+.cloud-float-slow {
+  animation: float 30s ease-in-out infinite;
+}
+
+.cloud-float-slower {
+  animation: float 40s ease-in-out infinite;
+}
+
+/* Mobile touch optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Improve button tap targets for mobile */
+@media (max-width: 640px) {
+  .touch-manipulation {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* Fullscreen mode styles for PDF viewer */
 #pdf-viewer-container:fullscreen {
   background-color: #1f2937;

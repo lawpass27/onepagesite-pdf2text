@@ -11,12 +11,16 @@ export default class extends Controller {
     // Listen for OCR completion
     window.addEventListener('ocr:completed', this.handleOcrCompleted.bind(this))
     
+    // Listen for page change events from PDF viewer
+    window.addEventListener('pdfViewer:pageChanged', this.handlePdfViewerPageChange.bind(this))
+    
     // Load from localStorage if available
     this.loadFromLocalStorage()
   }
   
   disconnect() {
     window.removeEventListener('ocr:completed', this.handleOcrCompleted.bind(this))
+    window.removeEventListener('pdfViewer:pageChanged', this.handlePdfViewerPageChange.bind(this))
   }
   
   async handleOcrCompleted(event) {
@@ -63,7 +67,7 @@ export default class extends Controller {
     const currentPageText = this.extractedTexts[this.currentPage]
     if (currentPageText !== undefined) {
       const textarea = document.createElement('textarea')
-      textarea.className = 'w-full h-full p-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'
+      textarea.className = 'w-full h-full p-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-y-auto'
       textarea.value = currentPageText
       textarea.dataset.pageNumber = this.currentPage
       textarea.addEventListener('input', (e) => this.handleTextChange(e))
@@ -187,12 +191,28 @@ export default class extends Controller {
     if (this.currentPage > 1) {
       this.currentPage--
       this.renderTexts()
+      this.dispatchPageChange()
     }
   }
   
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++
+      this.renderTexts()
+      this.dispatchPageChange()
+    }
+  }
+  
+  dispatchPageChange() {
+    window.dispatchEvent(new CustomEvent('textEditor:pageChanged', {
+      detail: { page: this.currentPage }
+    }))
+  }
+  
+  handlePdfViewerPageChange(event) {
+    const newPage = event.detail.page
+    if (newPage !== this.currentPage && newPage >= 1 && newPage <= this.totalPages) {
+      this.currentPage = newPage
       this.renderTexts()
     }
   }

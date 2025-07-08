@@ -1,7 +1,7 @@
 class GoogleVisionService
   attr_reader :errors
 
-  DEFAULT_CREDENTIAL_PATH = "/Users/lawpass/GoogleDriveMac/Development/onepagesite-pdf2text/ocr-436111-a9d8115b40c5.json"
+  DEFAULT_CREDENTIAL_PATH = ENV['GOOGLE_VISION_CREDENTIALS_PATH'] || Rails.root.join('ocr-436111-a9d8115b40c5.json').to_s
 
   def initialize
     @errors = []
