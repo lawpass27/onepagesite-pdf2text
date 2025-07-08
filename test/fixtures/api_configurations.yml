@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credential_path: MyString
+  is_active: false
+  last_validated_at: 2025-07-07 20:27:04
+
+two:
+  credential_path: MyString
+  is_active: false
+  last_validated_at: 2025-07-07 20:27:04

@@ -1,0 +1,47 @@
+ko:
+  config:
+    title: "Google Vision API 설정"
+    credential_path: "Google Cloud 서비스 계정 JSON 파일 경로"
+    placeholder: "/Users/사용자명/google-vision-key.json"
+    validate: "연결 테스트"
+    save: "저장"
+    success: "API 연결 성공!"
+    error: "API 연결 실패: %{message}"
+    help_text: "Google Cloud Console에서 다운로드한 서비스 계정 키 JSON 파일의 전체 경로를 입력하세요."
+    example: "예시: /Users/yourname/Downloads/vision-api-key.json"
+    
+  upload:
+    title: "PDF 파일 업로드"
+    instruction: "전자소송 PDF 파일을 여기에 드래그하거나 클릭하여 선택하세요"
+    button: "파일 선택"
+    error:
+      invalid_type: "PDF 파일만 업로드 가능합니다"
+      too_large: "파일 크기는 50MB 이하여야 합니다"
+      api_not_configured: "먼저 Google Vision API를 설정해주세요"
+    
+  ocr:
+    start: "텍스트 추출 시작"
+    processing: "처리 중... (%{current}/%{total} 페이지)"
+    complete: "추출 완료!"
+    error: "처리 중 오류 발생: %{message}"
+    retry: "재시도"
+    
+  viewer:
+    page: "페이지"
+    zoom_in: "확대"
+    zoom_out: "축소"
+    fullscreen: "전체화면"
+    
+  editor:
+    copy_all: "전체 복사"
+    copied: "클립보드에 복사되었습니다"
+    page_label: "페이지 %{number}"
+    
+  download:
+    button: "텍스트 다운로드"
+    format: "다운로드 형식"
+    txt: "텍스트 파일 (.txt)"
+    docx: "워드 문서 (.docx)"
+    pages: "페이지 선택"
+    all_pages: "전체 페이지"
+    selected_pages: "선택한 페이지"
